@@ -18,7 +18,7 @@ function addDestinationInfo(document, name, diameter, star, distance, moons, ima
  }
  
  function validateInput(testInput) {
-    if (testInput == "" || testInput == " "){
+    if (testInput.trim() == ""){
         return "Empty"
     }
     else if (isNaN(testInput) === true){
@@ -29,11 +29,19 @@ function addDestinationInfo(document, name, diameter, star, distance, moons, ima
     }
     
  }
- console.log(validateInput(15))
- console.log(validateInput('1 5'))
- console.log(validateInput(''))
  
  function formSubmission(document, list, pilot, copilot, fuelLevel, cargoLevel) {
+    let checkList = document.getElementById(list)
+    let pilotName = document.getElementById('pilotStatus')
+    pilotName.innerHTML = `<li value=1>Pilot ${pilot} Ready</li>`
+    let coPilotName = document.getElementById('copilotStatus')
+    coPilotName.innerHTML = `<li value=2>CoPilot ${copilot} Ready`
+    let fuel = document.getElementById('fuelStatus')
+    if (fuelLevel < 10000){
+         checkList.style = "visibility.visible";
+         fuel.innerHTML = `<li value=3>${fuelLevel} is not enough fuel for the journey</li>`;
+         event.preventDefault()  
+    }
     
  }
  
