@@ -31,19 +31,55 @@ function addDestinationInfo(document, name, diameter, star, distance, moons, ima
  }
  
  function formSubmission(document, list, pilot, copilot, fuelLevel, cargoLevel) {
-    let checkList = document.getElementById(list)
+    let checkList = document.getElementById('faultyItems')
+    let launchStatus = document.getElementById('launchStatus')
     let pilotName = document.getElementById('pilotStatus')
-    pilotName.innerHTML = `<li value=1>Pilot ${pilot} Ready</li>`
+    pilotName.innerHTML = `<li value=1>Pilot ${pilot} is ready for launch</li>`
     let coPilotName = document.getElementById('copilotStatus')
-    coPilotName.innerHTML = `<li value=2>CoPilot ${copilot} Ready`
+    coPilotName.innerHTML = `<li value=2>Co-pilot ${copilot} is ready for launch</li>`
     let fuel = document.getElementById('fuelStatus')
-    if (fuelLevel < 10000){
-         checkList.style = "visibility.visible";
-         fuel.innerHTML = `<li value=3>${fuelLevel} is not enough fuel for the journey</li>`;
-         event.preventDefault()  
+    let cargo = document.getElementById('cargoStatus')
+    if (fuelLevel < 10000 && cargoLevel <= 10000){
+        checkList.style.visibility = "visible";
+        fuel.innerHTML = `<li value=3>Fuel level too low for launch</li>`;
+        cargo.innerHTML = `<li value=4>Cargo mass low enough for launch</li>`
+        launchStatus.innerHTML = `<h2>Shuttle Not Ready for Launch</h2>`
+        launchStatus.style.color = 'red'
+       //  checkList.preventDefault()  
+     }
+    if (fuelLevel < 10000 && cargoLevel < 10000){
+       checkList.style.visibility = "visible";
+       fuel.innerHTML = `<li value=3>Fuel level too low for launch</li>`;
+       cargo.innerHTML = `<li value=4>Cargo mass low enough for launch</li>`
+       launchStatus.innerHTML = `<h2>Shuttle Not Ready for Launch</h2>`
+       launchStatus.style.color = 'red'
+       // checkList. preventDefault()  
     }
-    
- }
+    else if (fuelLevel >= 10000 && cargoLevel >= 10000){
+       checkList.style.visibility = "visible";
+       fuel.innerHTML = `<li value=3>Fuel level high enough for launch</li>`;
+       cargo.innerHTML = `<li value=4>Cargo mass too heavy for launch</li>`
+       launchStatus.innerHTML = `<h2>Shuttle Not Ready for Launch</h2>`
+       launchStatus.style.color = 'red'
+       // checkList.preventDefault()  
+    }
+    else if (fuelLevel < 10000 && cargoLevel >= 10000){
+    checkList.style.visibility = "visible";
+    fuel.innerHTML = `<li value=3>Fuel level too low for launch</li>`;
+    cargo.innerHTML = `<li value=4>Cargo mass too heavy for launch</li>`
+    launchStatus.innerHTML = `<h2>Shuttle Not Ready for Launch</h2>`
+    launchStatus.style.color = 'red'
+    // checkList.preventDefault()  
+    }
+    else if (fuelLevel >= 10000 && cargoLevel <= 10000){
+        checkList.style.visibility = 'visible';
+        launchStatus.innerHTML = `<h2>"Shuttle is Ready for Launch"</h2>`
+        fuel.innerHTML = `<li value=3>Fuel level high enough for launch</li>`;
+        cargo.innerHTML = `<li value=4>"Cargo mass low enough for launch"</li>;`
+        launchStatus.style.color = 'green'
+    }
+ 
+}
  
  async function myFetch() {
      let planetsReturned;
