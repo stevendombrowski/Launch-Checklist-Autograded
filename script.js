@@ -12,11 +12,14 @@ window.addEventListener("load", function() {
     submit.addEventListener('click', function(){
         if (pilotName.value === "" || coPilot.value === "" || fuelLevel.value === "" || cargoMass.value === ""){
             alert("ALL FIELDS NEED TO BE FILLED")
-            event.preventDefault() 
-
+            event.preventDefault()
         }
+        if (validateInput(pilotName.value) != "Not a Number" || validateInput(coPilot.value) != "Not a Number" || validateInput(fuelLevel.value) != "Is a Number" || validateInput(cargoMass.value) != "Is a Number"){
+            alert("Please enter correct Value Types")
+            event.preventDefault()
         formSubmission(document, "faultyItems", pilotName.value, coPilot.value, fuelLevel.value, cargoMass.value)
         
+        }
     })
 
     let listedPlanets;
